@@ -7,6 +7,11 @@
 사용자는 일정을 생성, 조회, 수정, 삭제를 할 수 있습니다.
 
 ---
+## ERD 구조
+<img width="598" height="208" alt="스크린샷 2025-11-04 오후 2 25 02" src="https://github.com/user-attachments/assets/69dd9ed6-289c-4248-8ee5-03e572b3b363" />
+
+
+---
 ## 주요 기능
 * 일정 생성 (CREATE)
 * 일정 조회 (READ)
