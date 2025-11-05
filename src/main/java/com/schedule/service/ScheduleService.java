@@ -118,6 +118,8 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
         Schedule savedSchedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("등록되지 않은 일정입니다."));
 
+        //TODO 해당 일정에 등록된 댓글들을 포함하여 함께 응답 List<Comment>를 조회하거나 얻고 response에 넣고 보내야함
+
         //2. 저장된 Entity를 response DTO로 변환하여 반환
         ScheduleResponse response = new ScheduleResponse(
                 savedSchedule.getId(),

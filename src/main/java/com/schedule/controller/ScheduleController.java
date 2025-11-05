@@ -65,6 +65,7 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
     public ResponseEntity<ScheduleResponse> getOne(@PathVariable Long id) {
 
         //1. 요청 데이터를 서비스로 전달하여 로직 수행
+        //TODO 해당 일정에 등록된 댓글들을 포함하여 함께 응답 ( Response 변경 예정 List<Comment> 추가해야함)
         ScheduleResponse result = scheduleService.getOne(id);
 
         //2. 반환 - 상태코드 200 - body
