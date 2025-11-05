@@ -1,9 +1,12 @@
 package com.schedule.entity;
 
+import com.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -21,6 +24,9 @@ public class Schedule extends BaseEntity {
     private String author;
     @Column(length = 100, nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "schedule")
+    private List<Comment> commentList;
 
     public Schedule(String title, String content, String author, String password) {
         this.title = title;
