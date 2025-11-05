@@ -1,6 +1,7 @@
 package com.schedule.service;
 
 import com.schedule.dto.CreateScheduleRequest;
+import com.schedule.dto.DeleteScheduleRequest;
 import com.schedule.dto.ScheduleResponse;
 import com.schedule.dto.UpdateScheduleRequest;
 import com.schedule.entity.Schedule;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +145,7 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
     @Transactional
     public ScheduleResponse update(Long id, UpdateScheduleRequest request) {
 
-        //1. 선택한 일정을 먼저 찾음
+        //1. 고유 id가 있는 일정 조회
         Schedule savedSchedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("등록되지 않은 일정입니다."));
 
@@ -169,7 +172,29 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
         return response;
     }
 
-    //TODO 선택한 일정 삭제
-    //TODO param id, Request (password)
-    //TODO 비밀번호 확인 후 삭제
+    /**
+     * 일정 삭제
+     * @param id 일정 고유 ID
+     * @param request DeleteScheduleRequest 확인할 password
+     * @return 삭제되면 true
+     * @throws IllegalStateException 등록되지 않거나 비밀번호가 틀린 일정일 때
+     */
+    @Transactional
+    public boolean delete(Long id, DeleteScheduleRequest request) {
+
+        //1. 고유 id가 있는 일정 조회
+        Schedule savedSchedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("등록되지 않은 일정입니다."));
+
+        //2. 비밀번호 확인
+        if (savedSchedule.getPassword().equals(request.getPassword())) {
+            //2-a. 선택한 일정 삭제
+            scheduleRepository.deleteById(id);
+            return true;
+        } else {
+            //2-b. 일치하지 않으면 throw
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+
+    }
 }

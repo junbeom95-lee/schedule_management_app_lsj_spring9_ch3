@@ -1,6 +1,7 @@
 package com.schedule.controller;
 
 import com.schedule.dto.CreateScheduleRequest;
+import com.schedule.dto.DeleteScheduleRequest;
 import com.schedule.dto.ScheduleResponse;
 import com.schedule.dto.UpdateScheduleRequest;
 import com.schedule.service.ScheduleService;
@@ -86,8 +87,19 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    //TODO 일정 삭제 (선택한 일정 삭제)
-    //TODO PathVariable Long id -> 선택 일정
-    //TODO Request password <- 비밀번호를 함께 전달 받음
+    /**
+     * 일정 삭제
+     * @param id 일정 고유 ID
+     * @param request DeleteScheduleRequest 확인할 password
+     * @return ResponseEntity 상태코드 및 Body Boolean (true)
+     */
+    @DeleteMapping("/schedules/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long id, @RequestBody DeleteScheduleRequest request) {
 
+        //1. 요청 데이터를 서비스로 전달하여 로직 수행
+        boolean result = scheduleService.delete(id, request);
+
+        //2. 반환 - 상태코드 200 - body
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }
