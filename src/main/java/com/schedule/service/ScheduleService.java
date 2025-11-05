@@ -129,4 +129,8 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
         //3. DTO 반환
         return response;
     }
+
+    //TODO 일정 수정 - id, request(일정 제목, 작성자명, 비밀번호) param
+    //TODO 일정 제목, 작성자명  만 수정 가능
+
 }

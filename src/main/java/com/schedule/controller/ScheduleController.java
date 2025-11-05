@@ -68,4 +68,7 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
         //2. 반환 - 상태코드 200 - body
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    //TODO 일정 수정  - 일정 고유 id 로 선택한 일정을 수정 Method - PUT
+    //TODO Request : 일정 제목, 작성자명, 비밀번호
 }
