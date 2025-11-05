@@ -1,9 +1,6 @@
 package com.schedule.controller;
 
-import com.schedule.dto.CreateScheduleRequest;
-import com.schedule.dto.DeleteScheduleRequest;
-import com.schedule.dto.ScheduleResponse;
-import com.schedule.dto.UpdateScheduleRequest;
+import com.schedule.dto.*;
 import com.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +14,7 @@ import java.util.List;
 public class ScheduleController {   //사용자가 애플리케이션과 상호작용하는 사용자 인터페이스 및 커뮤니케이션 계층
 
     //속성
-    private final ScheduleService scheduleService;    //비즈니스 로직 처리 담당
+    private final ScheduleService scheduleService;    //일정 비즈니스 로직 처리 담당
 
     //기능
     /**
@@ -59,14 +56,13 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
     /**
      * id 기준으로 하나(단건) 일정 조회
      * @param id 일정 고유 ID
-     * @return ResponseEntity 상태코드 및 Body ScheduleResponse(일정 응답 DTO) 설정
+     * @return ResponseEntity 상태코드 및 Body GetOneScheduleResponse(일정과 등록된 댓글들 DTO) 설정
      */
     @GetMapping("/schedules/{id}")
-    public ResponseEntity<ScheduleResponse> getOne(@PathVariable Long id) {
+    public ResponseEntity<GetOneScheduleResponse> getOne(@PathVariable Long id) {
 
         //1. 요청 데이터를 서비스로 전달하여 로직 수행
-        //TODO 해당 일정에 등록된 댓글들을 포함하여 함께 응답 ( Response 변경 예정 List<Comment> 추가해야함)
-        ScheduleResponse result = scheduleService.getOne(id);
+        GetOneScheduleResponse result = scheduleService.getOne(id);
 
         //2. 반환 - 상태코드 200 - body
         return ResponseEntity.status(HttpStatus.OK).body(result);

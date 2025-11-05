@@ -1,9 +1,8 @@
 package com.schedule.service;
 
-import com.schedule.dto.CreateScheduleRequest;
-import com.schedule.dto.DeleteScheduleRequest;
-import com.schedule.dto.ScheduleResponse;
-import com.schedule.dto.UpdateScheduleRequest;
+import com.comment.dto.GetOneScheduleCommentResponse;
+import com.comment.entity.Comment;
+import com.schedule.dto.*;
 import com.schedule.entity.Schedule;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ScheduleService {  //비즈니스 로직 처리 담당
+public class ScheduleService {  //일정 비즈니스 로직 처리 담당
 
     //속성
-    private final ScheduleRepository scheduleRepository;    //데이터베이스 작업 담당
+    private final ScheduleRepository scheduleRepository;    //일정 데이터베이스 작업 담당
+
 
     //기
     /**
@@ -109,28 +109,39 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
     /**
      * 단건 일정 조회 by id
      * @param id 일정 고유 ID
-     * @return ScheduleResponse 일정 응답 DTO
+     * @return GetOneScheduleResponse 일정과 등록된 댓글들을 담은 DTO
      */
     @Transactional(readOnly = true)
-    public ScheduleResponse getOne(Long id) {
+    public GetOneScheduleResponse getOne(Long id) {
 
         //1. 등록된 일정 id로 조회
         Schedule savedSchedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("등록되지 않은 일정입니다."));
 
-        //TODO 해당 일정에 등록된 댓글들을 포함하여 함께 응답 List<Comment>를 조회하거나 얻고 response에 넣고 보내야함
+        //2. 등록된 댓글들을 DTO에 담기
+        List<GetOneScheduleCommentResponse> savedScheduleCommentlist = new ArrayList<>();
+        for(Comment comment : savedSchedule.getCommentList()) {
+            savedScheduleCommentlist.add(new GetOneScheduleCommentResponse(
+                    comment.getId(),
+                    comment.getContent(),
+                    comment.getAuthor(),
+                    comment.getCreatedAt(),
+                    comment.getModifiedAt()
+            ));
+        }
 
-        //2. 저장된 Entity를 response DTO로 변환하여 반환
-        ScheduleResponse response = new ScheduleResponse(
+        //3. 등록된 일정과 위에서 만든 댓글들 DTO에 담기
+        GetOneScheduleResponse response = new GetOneScheduleResponse(
                 savedSchedule.getId(),
                 savedSchedule.getTitle(),
                 savedSchedule.getContent(),
                 savedSchedule.getAuthor(),
                 savedSchedule.getCreatedAt(),
-                savedSchedule.getModifiedAt()
+                savedSchedule.getModifiedAt(),
+                savedScheduleCommentlist
         );
 
-        //3. DTO 반환
+        //4. DTO 반환
         return response;
     }
 
