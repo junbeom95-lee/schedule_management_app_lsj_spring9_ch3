@@ -30,4 +30,8 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
         //2. 반환 - 상태코드 201 - body
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
+    //TODO 일정 조회 (전체 일정 조회) - 작성자명 기준 (nullable)
+
+    //TODO 일정 조회 (단건 일정 조회) - id 기준
 }

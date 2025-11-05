@@ -46,4 +46,8 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
 
         return response;
     }
+
+    //TODO 일정 조회 - 다건 - request author
+
+    //TODO 일정 조회 - 단건 - request id
 }
