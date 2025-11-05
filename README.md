@@ -8,8 +8,11 @@
 
 ---
 ## ERD 구조
+### lv4까지의 구조
 <img width="598" height="208" alt="스크린샷 2025-11-04 오후 2 25 02" src="https://github.com/user-attachments/assets/69dd9ed6-289c-4248-8ee5-03e572b3b363" />
 
+### lv5이후 구조
+<img width="1760" height="267" alt="스크린샷 2025-11-05 오후 6 52 27" src="https://github.com/user-attachments/assets/ebd911aa-2bd3-4ef5-b231-c8291691c30f" />
 
 ---
 ## 주요 기능
