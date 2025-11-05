@@ -18,8 +18,8 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
 
     /**
      * 일정 생성
-     * @param request CreateScheduleRequest 일정 생성 DTO
-     * @return ResponseEntity 상태코드 및 Body CreateScheduleResponse 설정
+     * @param request CreateScheduleRequest 일정 생성 요청 DTO
+     * @return ResponseEntity 상태코드 및 Body CreateScheduleResponse(일정 생성 응답 DTO) 설정
      */
     @PostMapping("/schedules")
     public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {

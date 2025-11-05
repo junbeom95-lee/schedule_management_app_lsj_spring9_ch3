@@ -17,6 +17,11 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
     //생
 
     //기
+    /**
+     * 일정 생성 로직
+     * @param request CreateScheduleRequest 일정 생성 요청 DTO
+     * @return CreateScheduleResponse 일정 생성 응답 DTO
+     */
     public CreateScheduleResponse save(CreateScheduleRequest request) {
 
         //1. 요청받은 DTO를 Entity로 변환
