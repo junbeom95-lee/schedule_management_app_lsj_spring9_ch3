@@ -19,7 +19,7 @@
 * 일정 삭제 (DELETE)
 ---
 ## API 명세서
-
+https://documenter.getpostman.com/view/49692428/2sB3WqtfZ8
 
 ---
 ## 기술 스택
