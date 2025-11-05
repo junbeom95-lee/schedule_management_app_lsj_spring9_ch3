@@ -168,4 +168,8 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
         //4. response 반환
         return response;
     }
+
+    //TODO 선택한 일정 삭제
+    //TODO param id, Request (password)
+    //TODO 비밀번호 확인 후 삭제
 }

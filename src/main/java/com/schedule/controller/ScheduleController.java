@@ -85,4 +85,9 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
         //2. 반환 - 상태코드 200 - body
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    //TODO 일정 삭제 (선택한 일정 삭제)
+    //TODO PathVariable Long id -> 선택 일정
+    //TODO Request password <- 비밀번호를 함께 전달 받음
+
 }
