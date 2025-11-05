@@ -2,6 +2,7 @@ package com.schedule.service;
 
 import com.schedule.dto.CreateScheduleRequest;
 import com.schedule.dto.ScheduleResponse;
+import com.schedule.dto.UpdateScheduleRequest;
 import com.schedule.entity.Schedule;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -130,7 +131,41 @@ public class ScheduleService {  //비즈니스 로직 처리 담당
         return response;
     }
 
-    //TODO 일정 수정 - id, request(일정 제목, 작성자명, 비밀번호) param
-    //TODO 일정 제목, 작성자명  만 수정 가능
+    /**
+     * 일정 수정
+     * 1. id로 선택한 일정 가져오기
+     * 2. 비밀번호 확인 후 수정
+     * @param id 일정 고유 ID
+     * @param request UpdateScheduleRequest 변경할 제목이랑 작성자명과 비교할 비밀번호가 있음
+     * @return ScheduleResponse 일정 응답 DTO
+     */
+    @Transactional
+    public ScheduleResponse update(Long id, UpdateScheduleRequest request) {
 
+        //1. 선택한 일정을 먼저 찾음
+        Schedule savedSchedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("등록되지 않은 일정입니다."));
+
+        //2. 비밀번호 확인
+        if (savedSchedule.getPassword().equals(request.getPassword())) {
+            //2-a. 선택한 일정의 제목과 작성자명 수정
+            savedSchedule.update(request.getTitle(), request.getAuthor());
+        } else {
+            //2-b. 일치하지 않으면 throw
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+
+        //3. 수정된 필드를 가지고 DTO에 반환
+        ScheduleResponse response = new ScheduleResponse(
+                savedSchedule.getId(),
+                savedSchedule.getTitle(),
+                savedSchedule.getContent(),
+                savedSchedule.getAuthor(),
+                savedSchedule.getCreatedAt(),
+                savedSchedule.getModifiedAt()
+        );
+
+        //4. response 반환
+        return response;
+    }
 }

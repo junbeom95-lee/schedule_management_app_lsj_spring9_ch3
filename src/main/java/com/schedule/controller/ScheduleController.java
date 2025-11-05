@@ -2,6 +2,7 @@ package com.schedule.controller;
 
 import com.schedule.dto.CreateScheduleRequest;
 import com.schedule.dto.ScheduleResponse;
+import com.schedule.dto.UpdateScheduleRequest;
 import com.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -69,6 +70,19 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    //TODO 일정 수정  - 일정 고유 id 로 선택한 일정을 수정 Method - PUT
-    //TODO Request : 일정 제목, 작성자명, 비밀번호
+    /**
+     * 일정 수정
+     * @param id 일정 고유 ID
+     * @param request UpdateScheduleRequest 변경내용(title, author)과 함께 확인할 password
+     * @return ResponseEntity 상태코드 및 Body ScheduleResponse(일정 응답 DTO) 설정
+     */
+    @PutMapping("/schedules/{id}")
+    public ResponseEntity<ScheduleResponse> update(@PathVariable Long id, @RequestBody UpdateScheduleRequest request) {
+
+        //1. 요청 데이터를 서비스로 전달하여 로직 수행
+        ScheduleResponse result = scheduleService.update(id, request);
+
+        //2. 반환 - 상태코드 200 - body
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }
