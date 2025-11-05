@@ -17,12 +17,6 @@ public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id") //하나의 일정에 속해야하는 컬럼?
-
-    private Schedule schedule;
-
     @Column(nullable = false)
     private String content;
     @Column(length = 50)
@@ -30,9 +24,14 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    public Comment(String content, String author, String password) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id") //하나의 일정에 속해야하는 컬럼?
+    private Schedule schedule;
+
+    public Comment(String content, String author, String password, Schedule schedule) {
         this.content = content;
         this.author = author;
         this.password = password;
+        this.schedule = schedule;
     }
 }
