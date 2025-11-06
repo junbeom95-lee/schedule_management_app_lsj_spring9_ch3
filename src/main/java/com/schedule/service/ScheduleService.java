@@ -88,7 +88,8 @@ public class ScheduleService {  //일정 비즈니스 로직 처리 담당
     public List<ScheduleResponse> getAll() {
 
         //1. 등록된 일정 목록 전부 조회
-        List<Schedule> scheduleList = scheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "modifiedAt"));
+        Sort sort = Sort.by("modifiedAt").descending();         //정렬 방법 설정
+        List<Schedule> scheduleList = scheduleRepository.findAll(sort);
 
         //2. DTO로 변환
         List<ScheduleResponse> responseList = new ArrayList<>();
