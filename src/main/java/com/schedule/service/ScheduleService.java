@@ -166,7 +166,9 @@ public class ScheduleService {  //일정 비즈니스 로직 처리 담당
             savedSchedule.update(request.getTitle(), request.getAuthor());
         } else {
             //2-b. 일치하지 않으면 throw
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+
+
         }
 
         //3. 수정된 필드를 가지고 DTO에 반환
@@ -204,7 +206,7 @@ public class ScheduleService {  //일정 비즈니스 로직 처리 담당
             return true;
         } else {
             //2-b. 일치하지 않으면 throw
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
     }

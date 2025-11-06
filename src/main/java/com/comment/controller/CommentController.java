@@ -3,6 +3,7 @@ package com.comment.controller;
 import com.comment.dto.CreateCommentRequest;
 import com.comment.dto.CreateCommentResponse;
 import com.comment.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class CommentController {
      * @return ResponseEntity 상태코드 및 Body (CreateCommentResponse 응답 DTO)
      */
     @PostMapping("/schedules/{scheduleId}/comments")
-    public ResponseEntity<CreateCommentResponse> create(@PathVariable Long scheduleId, @RequestBody CreateCommentRequest request) {
+    public ResponseEntity<CreateCommentResponse> create(@PathVariable Long scheduleId, @RequestBody @Valid CreateCommentRequest request) {
 
         CreateCommentResponse result = commentService.save(scheduleId, request);
 

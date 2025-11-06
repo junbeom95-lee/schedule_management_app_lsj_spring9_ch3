@@ -2,6 +2,7 @@ package com.schedule.controller;
 
 import com.schedule.dto.*;
 import com.schedule.service.ScheduleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
      * @return ResponseEntity 상태코드 및 Body ScheduleResponse(일정 응답 DTO) 설정
      */
     @PostMapping("/schedules")
-    public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {
+    public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody @Valid CreateScheduleRequest request) {
 
         //1. 요청데이터를 서비스로 전달하여 연산 수행 (비즈니스 로직 수행)하고 응답데이터 생성
         ScheduleResponse result = scheduleService.save(request);
@@ -75,7 +76,7 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
      * @return ResponseEntity 상태코드 및 Body ScheduleResponse(일정 응답 DTO) 설정
      */
     @PutMapping("/schedules/{id}")
-    public ResponseEntity<ScheduleResponse> update(@PathVariable Long id, @RequestBody UpdateScheduleRequest request) {
+    public ResponseEntity<ScheduleResponse> update(@PathVariable Long id, @RequestBody @Valid UpdateScheduleRequest request) {
 
         //1. 요청 데이터를 서비스로 전달하여 로직 수행
         ScheduleResponse result = scheduleService.update(id, request);
@@ -91,7 +92,7 @@ public class ScheduleController {   //사용자가 애플리케이션과 상호�
      * @return ResponseEntity 상태코드 및 Body Boolean (true)
      */
     @DeleteMapping("/schedules/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long id, @RequestBody DeleteScheduleRequest request) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long id, @RequestBody @Valid DeleteScheduleRequest request) {
 
         //1. 요청 데이터를 서비스로 전달하여 로직 수행
         boolean result = scheduleService.delete(id, request);

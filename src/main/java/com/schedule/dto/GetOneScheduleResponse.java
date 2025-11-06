@@ -1,7 +1,6 @@
 package com.schedule.dto;
 
 import com.comment.dto.GetOneScheduleCommentResponse;
-import com.comment.entity.Comment;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
